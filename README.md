@@ -6,8 +6,8 @@
 
 在托盘显示你的电池百分比，Win10、Win11 可用
 
-![](https://raw.githubusercontent.com/marxti/percentage/master/percentage.png)
-![](https://raw.githubusercontent.com/marxti/percentage/master/percentage2.png)
+![](https://github.com/marxti/percentage/blob/dev/percentage.png)
+![](https://github.com/marxti/percentage/blob/dev/percentage2.png)
 
 1. 右键菜单提供字体设置功能，可以自行设置所需字体
 2. 可自适应系统黑暗模式
