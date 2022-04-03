@@ -1,16 +1,24 @@
 # percentage
 
-![](https://raw.githubusercontent.com/kas/percentage/master/percentage.png)
+> 基于 [kas/percentage](https://github.com/kas/percentage) 项目开发，
 
-See your battery percentage in the Windows 10 and Windows 11 system tray
+## 功能
 
-## Installing
+在托盘显示你的电池百分比，Win10、Win11 可用
 
-1. [Download the latest release](https://github.com/kas/percentage/releases)
-1. Put percentage.exe in your startup folder
-   1. To get to your startup folder, press Windows+R, type "shell:startup", then press enter
+![](https://raw.githubusercontent.com/marxti/percentage/master/percentage.png)
+![](https://raw.githubusercontent.com/marxti/percentage/master/percentage2.png)
 
-## Compiling
+1. 右键菜单提供字体设置功能，可以自行设置所需字体
+2. 可自适应系统黑暗模式
+
+## 安装
+
+1. 自行编译或下载最新 release 版本
+2. 将 percentage.exe 放到系统启动文件夹
+	1. 要打开系统启动文件夹，点击 Windows+R，输入 "shell:startup", 然后点击 Enter
+
+## 编译
 
 This project was compiled with Visual Studio Community 2022.
 
@@ -21,6 +29,3 @@ To build the project
 1. Click "Build > Build Solution"
 1. percentage.exe can be found at percentage\percentage\percentage\bin\Debug\percentage.exe
 
-## Contributions
-
-My goal for this project is to keep it as simple as possible. I welcome suggestions, but for complicated features I'd recommend forking the project.

@@ -10,8 +10,6 @@ namespace percentage
         [DllImport("user32.dll", CharSet=CharSet.Auto)]
         static extern bool DestroyIcon(IntPtr handle);
 
-        private const int fontSize = 18;
-        private const string font = "Segoe UI";
         private Color fontColor = Color.Black;
 
         private NotifyIcon notifyIcon;
@@ -19,21 +17,28 @@ namespace percentage
         public TrayIcon()
         {
             ContextMenu contextMenu = new ContextMenu();
-            MenuItem menuItem = new MenuItem();
+            MenuItem menuItemExit = new MenuItem();
+            MenuItem menuItemFontSet = new MenuItem();
 
             notifyIcon = new NotifyIcon();
 
-            contextMenu.MenuItems.AddRange(new MenuItem[] { menuItem });
+            contextMenu.MenuItems.AddRange(new MenuItem[] { menuItemExit, menuItemFontSet });
 
-            menuItem.Click += new System.EventHandler(MenuItemClick);
-            menuItem.Index = 0;
-            menuItem.Text = "E&xit";
+            menuItemFontSet.Click += new System.EventHandler(MenuItemFontSetClick);
+            menuItemFontSet.Index = 0;
+            menuItemFontSet.Text = "F&ontSet";
+
+            menuItemExit.Click += new System.EventHandler(MenuItemExitClick);
+            menuItemExit.Index = 1;
+            menuItemExit.Text = "E&xit";
 
             notifyIcon.ContextMenu = contextMenu;
             notifyIcon.Visible = true;
 
-            Timer timer = new Timer();
-            timer.Interval = 1000;
+            Timer timer = new Timer
+            {
+                Interval = 1000
+            };
             timer.Tick += new EventHandler(TimerTick);
             timer.Start();
         }
@@ -55,21 +60,19 @@ namespace percentage
             return bitmap;
         }
 
-        // true为深色模式 反之false
+        // dark is true, light is false
         private static bool GetWindowsTheme()
         {
             const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
-            // 获取应用的颜色模式
             //const string RegistryValueName = "AppsUseLightTheme";
-            // 获取系统的颜色模式
             const string RegistryValueName = "SystemUsesLightTheme";
-            // 这里也可能是LocalMachine(HKEY_LOCAL_MACHINE)
+            // Maybe LocalMachine(HKEY_LOCAL_MACHINE)
             // see "https://www.addictivetips.com/windows-tips/how-to-enable-the-dark-theme-in-windows-10/"
             object registryValueObject = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(RegistryKeyPath)?.GetValue(RegistryValueName);
             if (registryValueObject is null)
                 return false;
 
-            return (int)registryValueObject > 0 ? false : true;
+            return (int)registryValueObject <= 0;
         }
 
         private static SizeF GetStringImageSize(string text, Font font)
@@ -79,19 +82,30 @@ namespace percentage
                 return graphics.MeasureString(text, font);
         }
 
-        private void MenuItemClick(object sender, EventArgs e)
+        private void MenuItemExitClick(object sender, EventArgs e)
         {
             notifyIcon.Visible = false;
             notifyIcon.Dispose();
             Application.Exit();
         }
 
+        private void MenuItemFontSetClick(object sender, EventArgs e)
+        {
+            using (FontDialog fontDialog = new FontDialog())
+            {
+                fontDialog.Font = Properties.Settings.Default.font;
+                fontDialog.ShowDialog();
+                Properties.Settings.Default.font = fontDialog.Font;
+            }
+            Properties.Settings.Default.Save();
+        }
+
         private void TimerTick(object sender, EventArgs e)
         {
             PowerStatus powerStatus = SystemInformation.PowerStatus;
-            String percentage = (powerStatus.BatteryLifePercent * 100).ToString();
+            string percentage = (powerStatus.BatteryLifePercent * 100).ToString();
             bool isCharging = powerStatus.PowerLineStatus == PowerLineStatus.Online;
-            String bitmapText = powerStatus.BatteryLifePercent < 1 ? ((int)(powerStatus.BatteryLifePercent * 100)).ToString("D2") : "00";
+            string bitmapText = powerStatus.BatteryLifePercent < 1 ? ((int)(powerStatus.BatteryLifePercent * 100)).ToString("D2") : "00";
 
             if (GetWindowsTheme())
             {
@@ -108,7 +122,7 @@ namespace percentage
                 }
             }
 
-            using (Bitmap bitmap = new Bitmap(GetTextBitmap(bitmapText, new Font(font, fontSize), fontColor)))
+            using (Bitmap bitmap = new Bitmap(GetTextBitmap(bitmapText, Properties.Settings.Default.font, fontColor)))
             {
                 System.IntPtr intPtr = bitmap.GetHicon();
                 try
@@ -116,8 +130,8 @@ namespace percentage
                     using (Icon icon = Icon.FromHandle(intPtr))
                     {
                         notifyIcon.Icon = icon;
-                        String toolTipText = percentage + "%" + (isCharging ? " Charging" : "");
-                        notifyIcon.Text = toolTipText;
+                        //string toolTipText = percentage + "%" + (isCharging ? " Charging" : "");
+                        notifyIcon.Text = percentage + "%" + (isCharging ? " Charging" : "");
                     }
                 }
                 finally

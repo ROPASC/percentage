@@ -22,5 +22,17 @@ namespace percentage.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Segoe UI, 18.15126pt")]
+        public global::System.Drawing.Font font {
+            get {
+                return ((global::System.Drawing.Font)(this["font"]));
+            }
+            set {
+                this["font"] = value;
+            }
+        }
     }
 }
