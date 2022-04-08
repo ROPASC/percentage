@@ -1,31 +1,26 @@
 # percentage
 
-> »ùÓÚ [kas/percentage](https://github.com/kas/percentage) ÏîÄ¿¿ª·¢£¬
+> åŸºäºŽ [kas/percentage](https://github.com/kas/percentage) é¡¹ç›®å¼€å‘
 
-## ¹¦ÄÜ
+## åŠŸèƒ½
 
-ÔÚÍÐÅÌÏÔÊ¾ÄãµÄµç³Ø°Ù·Ö±È£¬Win10¡¢Win11 ¿ÉÓÃ
+åœ¨æ‰˜ç›˜æ˜¾ç¤ºä½ çš„ç”µæ± ç™¾åˆ†æ¯”ï¼ŒWindows 10ã€Windows 11 å¯ç”¨
 
-![](https://github.com/marxti/percentage/blob/dev/percentage.png)
-![](https://github.com/marxti/percentage/blob/dev/percentage2.png)
+![Windows 10](https://github.com/marxti/percentage/blob/dev/percentage.png)
+![Windows 11](https://github.com/marxti/percentage/blob/dev/percentage2.png)
 
-1. ÓÒ¼ü²Ëµ¥Ìá¹©×ÖÌåÉèÖÃ¹¦ÄÜ£¬¿ÉÒÔ×ÔÐÐÉèÖÃËùÐè×ÖÌå
-2. ¿É×ÔÊÊÓ¦ÏµÍ³ºÚ°µÄ£Ê½
+1. å³é”®èœå•æä¾›å­—ä½“è®¾ç½®åŠŸèƒ½ï¼Œå¯ä»¥è‡ªè¡Œè®¾ç½®æ‰€éœ€å­—ä½“
+2. å¯è‡ªé€‚åº”ç³»ç»Ÿé»‘æš—æ¨¡å¼
+3. ç”±äºŽæ‰˜ç›˜å›¾æ ‡å®½åº¦å›ºå®šï¼Œæ‰€ä»¥åœ¨ 100% ç”µé‡æ—¶æ˜¾ç¤º 00
 
-## °²×°
+## å®‰è£…
 
-1. ×ÔÐÐ±àÒë»òÏÂÔØ×îÐÂ release °æ±¾
-2. ½« percentage.exe ·Åµ½ÏµÍ³Æô¶¯ÎÄ¼þ¼Ð
-	1. Òª´ò¿ªÏµÍ³Æô¶¯ÎÄ¼þ¼Ð£¬µã»÷ Windows+R£¬ÊäÈë "shell:startup", È»ºóµã»÷ Enter
+1. è‡ªè¡Œç¼–è¯‘æˆ–ä¸‹è½½æœ€æ–° release ç‰ˆæœ¬
+2. å°† percentage.exe æ”¾åˆ°ç³»ç»Ÿå¯åŠ¨æ–‡ä»¶å¤¹
+> è¦æ‰“å¼€ç³»ç»Ÿå¯åŠ¨æ–‡ä»¶å¤¹ï¼Œç‚¹å‡» Windows+Rï¼Œè¾“å…¥ "shell:startup", ç„¶åŽç‚¹å‡» Enter
 
-## ±àÒë
+## å¼€å‘å·¥å…·
 
-This project was compiled with Visual Studio Community 2022.
+æœ¬é¡¹ç›®ä½¿ç”¨ C# é€šè¿‡ Visual Studio Community 2022 ç¼–è¯‘å¼€å‘
 
-Select ".NET desktop development" when setting up Visual Studio.
-
-To build the project
-1. Open the percentage/percentage.sln file with Visual Studio
-1. Click "Build > Build Solution"
-1. percentage.exe can be found at percentage\percentage\percentage\bin\Debug\percentage.exe
 
