@@ -6,12 +6,13 @@
 
 在托盘显示你的电池百分比，Windows 10、Windows 11 可用
 
-![Windows 10](https://github.com/marxti/percentage/blob/dev/percentage.png)
-![Windows 11](https://github.com/marxti/percentage/blob/dev/percentage2.png)
+![Windows 11](https://github.com/marxti/percentage/blob/dev/percentage_win11.png)
 
 1. 右键菜单提供字体设置功能，可以自行设置所需字体
 2. 可自适应系统黑暗模式
 3. 由于托盘图标宽度固定，所以在 100% 电量时显示 00
+4. 充电时，显示为绿色
+5，电量低于 20% 时，显示为红色
 
 ## 安装
 

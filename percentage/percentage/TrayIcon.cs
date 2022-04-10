@@ -107,7 +107,21 @@ namespace percentage
             bool isCharging = powerStatus.PowerLineStatus == PowerLineStatus.Online;
             string bitmapText = powerStatus.BatteryLifePercent < 1 ? ((int)(powerStatus.BatteryLifePercent * 100)).ToString("D2") : "00";
 
-            if (GetWindowsTheme())
+            if (isCharging)
+            {
+                if (fontColor != Color.Green)
+                {
+                    fontColor = Color.Green;
+                }
+            }
+            else if (powerStatus.BatteryLifePercent <= 0.2)
+            {
+                if (fontColor != Color.Red)
+                {
+                    fontColor = Color.Red;
+                }
+            }
+            else if (GetWindowsTheme())
             {
                 if (fontColor != Color.White)
                 {
