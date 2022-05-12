@@ -14,7 +14,7 @@ namespace percentage
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            TrayIcon trayIcon = new TrayIcon();
+            new TrayIcon();
 
             Application.Run();
         }

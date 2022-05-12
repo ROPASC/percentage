@@ -12,32 +12,23 @@ namespace percentage
 
         private Color fontColor = Color.Black;
 
-        private NotifyIcon notifyIcon;
+        private readonly NotifyIcon notifyIcon;
 
         public TrayIcon()
         {
-            ContextMenu contextMenu = new ContextMenu();
-            MenuItem menuItemExit = new MenuItem();
-            MenuItem menuItemFontSet = new MenuItem();
+            MenuItem menuItemExit       = new MenuItem("&Exit", MenuItemExitClick, Shortcut.CtrlE);
+            MenuItem menuItemFontSet    = new MenuItem("&FontSet", MenuItemFontSetClick, Shortcut.CtrlF);
+            ContextMenu contextMenu = new ContextMenu(new MenuItem[] { menuItemFontSet, menuItemExit });
 
-            notifyIcon = new NotifyIcon();
-
-            contextMenu.MenuItems.AddRange(new MenuItem[] { menuItemExit, menuItemFontSet });
-
-            menuItemFontSet.Click += new System.EventHandler(MenuItemFontSetClick);
-            menuItemFontSet.Index = 0;
-            menuItemFontSet.Text = "F&ontSet";
-
-            menuItemExit.Click += new System.EventHandler(MenuItemExitClick);
-            menuItemExit.Index = 1;
-            menuItemExit.Text = "E&xit";
-
-            notifyIcon.ContextMenu = contextMenu;
-            notifyIcon.Visible = true;
+            notifyIcon = new NotifyIcon
+            {
+                ContextMenu = contextMenu,
+                Visible = true
+            };
 
             Timer timer = new Timer
             {
-                Interval = 1000
+                Interval = 1000,
             };
             timer.Tick += new EventHandler(TimerTick);
             timer.Start();
@@ -52,8 +43,8 @@ namespace percentage
                 graphics.Clear(Color.FromArgb(0, 0, 0, 0));
                 using (Brush brush = new SolidBrush(fontColor))
                 {
-                    graphics.DrawString(text, font, brush, 0, 0);
-                    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+                    graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+                    graphics.DrawString(text, font, brush, 0, 0); 
                     graphics.Save();
                 }
             }
@@ -70,7 +61,9 @@ namespace percentage
             // see "https://www.addictivetips.com/windows-tips/how-to-enable-the-dark-theme-in-windows-10/"
             object registryValueObject = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(RegistryKeyPath)?.GetValue(RegistryValueName);
             if (registryValueObject is null)
+            {
                 return false;
+            }
 
             return (int)registryValueObject <= 0;
         }
@@ -109,31 +102,19 @@ namespace percentage
 
             if (isCharging)
             {
-                if (fontColor != Color.Green)
-                {
-                    fontColor = Color.Green;
-                }
+                fontColor = Color.Green;
             }
             else if (powerStatus.BatteryLifePercent <= 0.2)
             {
-                if (fontColor != Color.Red)
-                {
-                    fontColor = Color.Red;
-                }
+                fontColor = Color.Red;
             }
             else if (GetWindowsTheme())
             {
-                if (fontColor != Color.White)
-                {
-                    fontColor = Color.White;
-                }
+                fontColor = Color.White;
             }
             else
             {
-                if (fontColor != Color.Black)
-                {
-                    fontColor = Color.Black;
-                }
+                fontColor = Color.Black;
             }
 
             using (Bitmap bitmap = new Bitmap(GetTextBitmap(bitmapText, Properties.Settings.Default.font, fontColor)))
@@ -144,7 +125,6 @@ namespace percentage
                     using (Icon icon = Icon.FromHandle(intPtr))
                     {
                         notifyIcon.Icon = icon;
-                        //string toolTipText = percentage + "%" + (isCharging ? " Charging" : "");
                         notifyIcon.Text = percentage + "%" + (isCharging ? " Charging" : "");
                     }
                 }
